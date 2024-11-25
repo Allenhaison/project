@@ -1,0 +1,172 @@
+<script>
+    function showAlert(message) {
+        alert(message); 
+    }
+</script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+<body>
+   {% if messages %}
+   <script>
+     {% for message in messages %}
+        showAlert("{{ message }}");
+     {% endfor %}
+   </script>
+   {% endif %}
+   
+   <div class="main">
+       {% if students %}
+           {% for student in students %}
+           <div class="box">
+               <div class="photo">
+                   <img src="{{ student.photo.url }}" alt="Student Photo" width="100">
+               </div>
+               <div class="details">
+                   <table>
+                       <tbody>
+                           <tr>
+                               <td>STUDENT ID</td>
+                               <td>{{ student.student_id }}</td>
+                           </tr>
+                           <tr>
+                               <td>STUDENT NAME</td>
+                               <td>{{ student.name }}</td>
+                           </tr>
+                           <tr>
+                               <td>ADDRESS</td>
+                               <td>{{ student.address }}</td>
+                           </tr>
+                           <tr>
+                               <td>DEPARTMENT</td>
+                               <td>{{ student.department }}</td>
+                           </tr>
+                           <tr>
+                               <td>PHONE NUMBER</td>
+                               <td>{{ student.phone_number }}</td>
+                           </tr>
+                       </tbody>
+                   </table>
+               </div>
+               <div class="footer">
+                   <!-- DELETE Button -->
+                   <form method="POST" action="{% url 'delete_student' student.student_id %}" style="display: inline;">
+                       {% csrf_token %}
+                       <button type="submit" class="del">DELETE</button>
+                   </form>
+                   <!-- EDIT Button -->
+                   <a href="{% url 'edit_student' student.student_id %}" class="ed">EDIT</a>
+               </div>
+               <a href="{% url 'index' %}" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+           </div>
+           {% endfor %}
+       {% else %}
+           <div class="no-students">
+               <p class="msg">No students found in the database.</p>
+               <a href="{% url 'index' %}" class="back-btn">Back to Index</a>
+
+           </div>
+       {% endif %}
+   </div>
+</body>
+
+<style>
+    .main {
+        margin-left: 4.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        padding: 20px;
+    }
+
+    .box {
+        width: 20rem;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .photo {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .photo img {
+        border-radius: 50%;
+        width:200px; /* Size of the round image */
+        height: 200px; /* Ensure it's square */
+    }
+
+    .details {
+        font-size: 14px;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    .details table {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .details th, .details td {
+        font-weight: 1000;
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .del {
+        margin-left: 2rem;
+        width: 100%;
+        text-align: center;
+        border-radius: 0.7rem;
+        padding: 10px 20px;
+        background-color: rgb(54, 134, 54);
+        border: 1px solid rgb(54, 134, 54);
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+    }
+    
+    .ed {
+        margin-right: 3rem;
+        height: 0.3rem;
+        width: 30%;
+        text-align: center;
+        border-radius: 0.7rem;
+        padding: 11px 0px 20px 2px;
+        background-color: rgb(54, 134, 54);
+        border: 1px solid rgb(54, 134, 54);
+        color: white;
+        text-decoration: none;
+    }
+
+    .no-students {
+        text-align: center;
+        margin-top:13rem;
+        margin-left: 26rem;
+    }
+    .msg{
+        font-size: larger;
+        font-weight: 700;
+    }
+
+    .back-btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .back-btn:hover {
+        background-color: #0056b3;
+    }
+</style>

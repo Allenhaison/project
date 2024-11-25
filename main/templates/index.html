@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <style>
+        body {
+            background-image: url('https://img.freepik.com/free-vector/hand-drawn-teachers-day-background_23-2149062428.jpg?t=st=1732461769~exp=1732465369~hmac=8906331759d8fb1134f23a52eae8d437cfd1337377457f159cc50d18f316e332&w=740');
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;   
+        }
+
+        .box {
+            width: 45%;
+            height: 35rem;
+           
+            margin-left: 26.5%;
+            padding: 2%;
+            border-radius: 3%;
+            background: rgba(89, 131, 83, 0.09);
+            backdrop-filter: blur(2px);
+        }
+
+        h2 {
+            text-align: center;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            border-radius: 0.5rem;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+        }
+        input[type="file"]{
+            width: 90%;
+            border-radius: 0.5rem;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            background-color: white;
+            border: 1px solid #ccc;  
+        }
+
+        input::placeholder {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        label {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-weight: 600;
+            display: block;
+            margin-top: rem;
+        }
+
+        input[type="submit"],
+        button.view {
+            margin-top: 1rem;
+            width: 6rem;
+            border-radius: 0.5rem;
+            padding: 12px 20px;
+            background-color: rgb(54, 134, 54);
+            border: 1px solid rgb(54, 134, 54);
+            color: white;
+            cursor: pointer;
+        }
+
+        .view{
+    margin-left: 0.5rem;
+    width: 7rem;
+    border-radius: 0.7rem;
+    padding: 10px 20px;
+    background-color: rgb(54, 134, 54);
+    border: 1px solid  rgb(54, 134, 54); 
+    color: white;
+    text-decoration: none;
+}
+
+    </style>
+       <script>
+        // JavaScript to show an alert message
+        function showAlert(message) {
+            alert(message); // Native alert popup
+        }
+    </script>
+</head>
+
+<body>
+    <div class="box">
+        <h2>STUDENT PROFILE</h2>
+      
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="student_id">Student ID</label>
+            <input type="text" name="student_id" id="student_id" placeholder="Enter the student ID">
+
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" placeholder="Enter the student name">
+
+            <label for="address">Address</label>
+            <input type="text" name="address" id="address" placeholder="Enter the student address">
+
+            <label for="department">Department</label>
+            <input type="text" name="department" id="department" placeholder="Enter the student department">
+
+            <label for="phone_number">Phone Number</label>
+            <input type="text" name="phone_number" id="phone_number" placeholder="Enter the student phone number">
+
+            <label for="photo">Upload Photo</label>
+            <input type="file" name="photo" id="photo">
+
+            <input type="submit" value="Submit">
+            
+            <a href="{% url 'view_students' %}" class="view">View Students</a>
+
+
+        </form>
+    </div>
+    {% if success %}
+    <script>
+        showAlert('Student profile registered successfully!');
+    </script>
+    {% endif %}
+</body>
+
+</html>
