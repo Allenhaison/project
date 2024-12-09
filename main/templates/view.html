@@ -1,3 +1,5 @@
+
+<head><title>student profiles</title></head>
 <script>
     function showAlert(message) {
         alert(message); 
@@ -14,6 +16,13 @@
      {% endfor %}
    </script>
    {% endif %}
+
+   <div class="search-bar">
+    <form method="get">
+        <input type="text" name="search" placeholder="Search by Student ID or Name" value="{{ search_query }}">
+        <input type="submit" value="Search">
+    </form>
+</div>
    
    <div class="main">
        {% if students %}
@@ -56,6 +65,7 @@
                    </form>
                    <!-- EDIT Button -->
                    <a href="{% url 'edit_student' student.student_id %}" class="ed">EDIT</a>
+                   <a href="{% url 'view_student_details' student.student_id %}" class="ed">View Details</a>
                </div>
                <a href="{% url 'index' %}" class="back-btn"><i class="fas fa-arrow-left"></i></a>
            </div>
@@ -71,6 +81,9 @@
 </body>
 
 <style>
+    body{
+        background-color: rgb(212, 205, 205);
+    }
     .main {
         margin-left: 4.5rem;
         display: flex;
@@ -81,7 +94,7 @@
 
     .box {
         width: 20rem;
-        background-color: #f9f9f9;
+        background-color: #e6dbdb;
         border: 1px solid #ddd;
         padding: 15px;
         border-radius: 10px;
@@ -121,7 +134,7 @@
     }
 
     .del {
-        margin-left: 2rem;
+       
         width: 100%;
         text-align: center;
         border-radius: 0.7rem;
@@ -134,7 +147,7 @@
     }
     
     .ed {
-        margin-right: 3rem;
+      
         height: 0.3rem;
         width: 30%;
         text-align: center;
@@ -169,4 +182,24 @@
     .back-btn:hover {
         background-color: #0056b3;
     }
+
+    .search-bar input[type="text"] {
+            width: 78%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-left: 5.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .search-bar input[type="submit"] {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
 </style>
+

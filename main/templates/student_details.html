@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <style>
+        body {
+            background-color: rgb(212, 205, 205);
+            font-family: 'Gill Sans', sans-serif;
+        }
+
+        .details-box {
+            width: 50%;
+            margin: 50px auto;
+            background-color: #e6dbdb;
+            border: 1px solid #ddd;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .photo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .photo img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+        }
+
+        .form-field {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            width: 35%;
+            font-weight: bold;
+            text-align: right;
+            margin-right: 15px;
+            font-size: 16px;
+        }
+
+        .form-value {
+            width: 65%;
+            background-color: white;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .back-btn:hover {
+            background-color: #45a049;
+        }
+
+        .print-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+
+        .print-button:hover {
+            background-color: #0056b3;
+        }
+
+        @media print {
+            .back-btn, .print-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="details-box">
+        <div class="photo">
+            <img src="{{ student.photo.url }}" alt="Student Photo">
+        </div>
+        <div class="form-field">
+            <div class="form-label">STUDENT ID:</div>
+            <div class="form-value">{{ student.student_id }}</div>
+        </div>
+        <div class="form-field">
+            <div class="form-label">NAME:</div>
+            <div class="form-value">{{ student.name }}</div>
+        </div>
+        <div class="form-field">
+            <div class="form-label">ADDRESS:</div>
+            <div class="form-value">{{ student.address }}</div>
+        </div>
+        <div class="form-field">
+            <div class="form-label">DEPARTMENT:</div>
+            <div class="form-value">{{ student.department }}</div>
+        </div>
+        <div class="form-field">
+            <div class="form-label">PHONE NUMBER:</div>
+            <div class="form-value">{{ student.phone_number }}</div>
+        </div>
+        <a href="{% url 'view_students' %}" class="back-btn">Back to Students</a>
+        <button class="print-button" onclick="printDetails()">Print</button>
+    </div>
+</body>
+
+<script>
+    // Function to trigger print functionality
+    function printDetails() {
+        window.print();
+    }
+</script>
+</html>

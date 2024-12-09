@@ -19,9 +19,24 @@ def student_profile(request):
 from django.shortcuts import render
 from .models import Student  # Assuming you have a Student model
 
+from django.shortcuts import render
+from django.db.models import Q
+from .models import Student
+
 def view_students(request):
-    students = Student.objects.all()  # Fetch all student records from the database
-    return render(request, 'view.html', {'students': students})
+    # Get the search query from the URL
+    search_query = request.GET.get('search', '')  # Get 'search' parameter from the GET request
+
+    if search_query:
+        # If a search query is provided, filter by ID or Name (case-insensitive)
+        students = Student.objects.filter(
+            Q(student_id__icontains=search_query) | Q(name__icontains=search_query)
+        )
+    else:
+        # If no search query, fetch all student records
+        students = Student.objects.all()
+    
+    return render(request, 'view.html', {'students': students, 'search_query': search_query})
 
 
 
@@ -52,3 +67,9 @@ def edit_student(request, student_id):
 
 def index(request):
     return render(request, 'index.html')
+
+
+
+def view_student_details(request, student_id):
+    student = get_object_or_404(Student, student_id=student_id)
+    return render(request, 'student_details.html', {'student': student})

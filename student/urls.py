@@ -11,6 +11,7 @@ urlpatterns = [
      path('students/delete/<str:student_id>/', views.delete_student, name='delete_student'),
     path('students/edit/<str:student_id>/', views.edit_student, name='edit_student'),
      path('', views.index, name='index'),
+     path('view_student/<str:student_id>/', views.view_student_details, name='view_student_details'),
 ]
 
 # Serve media files during development
