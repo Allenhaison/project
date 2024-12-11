@@ -3,17 +3,40 @@ from django.shortcuts import render, redirect
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import StudentForm
 from .models import Student
+from django.db.models import Q
+
+
+from django.contrib import messages  # For displaying alert messages
+
+
+from django.shortcuts import render
+from django.http import JsonResponse
+from .forms import StudentForm
+from .models import Student  # Assuming you have a Student model
 
 def student_profile(request):
     form = StudentForm()
     success = False  # Flag for success
+    alert_message = ""  # Initialize an alert message
+
     if request.method == 'POST':
-        form = StudentForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()  # Save to database
-            success = True  # Set success flag
-            form = StudentForm()  # Reset the form
-    return render(request, 'index.html', {'form': form, 'success': success})
+        student_id = request.POST.get('student_id')
+       
+
+        # Check if a student with the same ID and name already exists
+        if Student.objects.filter(student_id=student_id).exists():
+            alert_message = "Student already exists!"  # Set the alert message
+        else:
+            form = StudentForm(request.POST, request.FILES)
+            if form.is_valid(): 
+                form.save()  # Save to database
+                success = True  # Set success flag
+                alert_message = "Student profile registered successfully!"
+                form = StudentForm()  # Reset the form
+
+    return render(request, 'index.html', {'form': form, 'success': success, 'alert_message': alert_message})
+
+
 
 
 from django.shortcuts import render
